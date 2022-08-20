@@ -1,0 +1,79 @@
+#include<stdio.h>
+#define MAX 100
+
+int main()
+{
+    int n,capacity,i,j,k;
+    int flag[MAX]={0},profit[MAX],weight[MAX],m[MAX][MAX];
+
+
+    printf("\nEnter How many input : ");
+    scanf("%d",&n);
+
+    printf("\nEnter weights : ");
+    for(i=1;i<=n;i++)
+    {
+        scanf("%d",&weight[i]);
+    }
+
+    printf("\nEnter profit :");
+    for(i=1;i<=n;i++)
+    {
+        scanf("%d",&profit[i]);
+    }
+
+    printf("\nEnter capacity : ");
+    scanf("%d",&capacity);
+
+    for(j=0;j<=capacity;j++)
+    {
+        m[0][j]=0;
+    }
+
+    for(i=1;i<=n;i++)
+        {
+            for(j=0;j<=capacity;j++)
+            {
+                if(weight[i]<=j)
+                {
+                    if( m[i-1][j] > (m[i-1][j-weight[i]]+profit[i]) )
+                    m[i][j]=m[i-1][j];
+    else
+        m[i][j]=m[i-1][j-weight[i]]+profit[i];
+    }
+    else
+        m[i][j]=m[i-1][j];
+    }
+
+    }
+
+
+
+ i=n;
+ k=capacity;
+ while(i>0 && k>0)
+ {
+     if(m[i][k]!=m[i-1][k])
+        {
+
+   flag[i]=1;
+
+   k=k-weight[i];
+
+   i=i-1;
+
+  }
+
+  else
+
+   i--;
+
+ }
+ printf("\nThe total profit is %d",m[n][capacity]);
+
+
+
+
+ return 0;
+
+}

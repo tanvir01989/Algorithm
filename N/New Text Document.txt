@@ -1,0 +1,59 @@
+#include<stdio.h>
+
+int max(int a, int b) { return (a > b)? a : b; }
+
+int knapSack(int W, int wt[], int val[], int n)
+{
+   int i, w;
+   int K[n+1][W+1];
+
+   for (i = 0; i <= n; i++)
+   {
+       for (w = 0; w <= W; w++)
+       {
+           if (i==0 || w==0)
+               K[i][w] = 0;
+           else if (wt[i-1] <= w)
+                 K[i][w] = max(val[i-1] + K[i-1][w-wt[i-1]],  K[i-1][w]);
+           else
+                 K[i][w] = K[i-1][w];
+       }
+   }
+
+   return K[n][W];
+}
+
+int main()
+{
+    int w[] = {2,4,3,5,4,3};
+	int p[] = {10,12,10,14,10,12};
+	int We = 11;
+	int nn = sizeof(p)/sizeof(p[0]);
+
+	printf("\n%d\n", knapSack(We, w, p, nn));
+
+	printf("\n");
+	int pr[] = {49,68,92,60,43,67,57,84,87,72};
+	int wt[] = {29,44,23,53,38,63,31,85,89,82};
+	int W = 165;
+	int n = sizeof(pr)/sizeof(pr[0]);
+
+	printf("\n%d\n", knapSack(W, wt, pr, n));
+
+	printf("\n");
+	int pp[] = {149,150,156,163,173,184,192,135,201,210,214,221,229,240,139};
+	int ww[] = {77,80,82,87,90,94,98,106,70,110,113,115,118,120,73};
+	int Ww = 750;
+	int m = sizeof(pp)/sizeof(pp[0]);
+
+	printf("\n%d\n", knapSack(Ww, ww, pp, m));
+
+    return 0;
+
+	return 0;
+}
+
+
+
+
+

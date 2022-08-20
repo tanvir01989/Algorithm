@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+int flag,sum=0;
+int *s, *x, n,c;
+
+
+void backtrack(int t)
+{
+	int i;
+	if(t==n)
+	{
+		if(sum==c)
+		{
+			flag=1;
+			for(i=0;i<n;i++)
+				if(x[i])
+					printf("%3d",s[i]);
+			printf("\n");
+			return;
+		}
+	}
+	else
+	{
+		sum+=s[t];
+		x[t]=1;
+		backtrack(t+1);
+		x[t]=0;
+		sum-=s[t];
+		backtrack(t+1);
+	}
+}
+int main()
+{
+	int i;
+	printf ( "Enter a solution to the problem requires the size S n and the target value and the subset c:");
+	scanf("%d%d",&n,&c);
+	s=(int *)malloc(sizeof(int)*n) ;
+	x=(int *)malloc(sizeof(int)*n);
+	 printf ( "Please enter the set S% d positive integer elements:", n);
+	for(i=0;i<n;i++){
+		scanf("%d",&s[i]);
+		x[i]=0;
+	}
+	backtrack(0);
+	if(flag)
+		printf("yes");
+	else
+		printf("no");
+	free(s);
+	free(x);
+	return 0;
+}
